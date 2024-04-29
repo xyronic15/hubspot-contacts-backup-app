@@ -1,0 +1,15 @@
+=> 
+[[32m#<Hubspot::Crm::Contacts::SimplePublicObjectWithAssociations:0x00007fecb5217128[0m
+  @archived[32m=[0m[36m[1mfalse[0m,
+  @created_at[32m=[0m2024-04-29 02:33:19.568 UTC,
+  @id[32m=[0m[31m[1m"[0m[31m10214567667[0m[31m[1m"[0m,
+  @properties[32m=[0m
+   {[31m[1m"[0m[31mcreatedate[0m[31m[1m"[0m=>[31m[1m"[0m[31m2024-04-29T02:33:19.568Z[0m[31m[1m"[0m, [31m[1m"[0m[31memail[0m[31m[1m"[0m=>[31m[1m"[0m[31mbh@hubspot.com[0m[31m[1m"[0m, [31m[1m"[0m[31mfirstname[0m[31m[1m"[0m=>[31m[1m"[0m[31mBrian[0m[31m[1m"[0m, [31m[1m"[0m[31mhs_object_id[0m[31m[1m"[0m=>[31m[1m"[0m[31m10214567667[0m[31m[1m"[0m, [31m[1m"[0m[31mlastmodifieddate[0m[31m[1m"[0m=>[31m[1m"[0m[31m2024-04-29T15:30:29.311Z[0m[31m[1m"[0m, [31m[1m"[0m[31mlastname[0m[31m[1m"[0m=>[31m[1m"[0m[31mHalligan (Sample Contact)[0m[31m[1m"[0m},
+  @updated_at[32m=[0m2024-04-29 15:30:29.311 UTC[32m>[0m,
+ [32m#<Hubspot::Crm::Contacts::SimplePublicObjectWithAssociations:0x00007fecb52ab008[0m
+  @archived[32m=[0m[36m[1mfalse[0m,
+  @created_at[32m=[0m2024-04-29 02:33:19.278 UTC,
+  @id[32m=[0m[31m[1m"[0m[31m10222649571[0m[31m[1m"[0m,
+  @properties[32m=[0m
+   {[31m[1m"[0m[31mcreatedate[0m[31m[1m"[0m=>[31m[1m"[0m[31m2024-04-29T02:33:19.278Z[0m[31m[1m"[0m, [31m[1m"[0m[31memail[0m[31m[1m"[0m=>[31m[1m"[0m[31memailmaria@hubspot.com[0m[31m[1m"[0m, [31m[1m"[0m[31mfirstname[0m[31m[1m"[0m=>[31m[1m"[0m[31mMaria[0m[31m[1m"[0m, [31m[1m"[0m[31mhs_object_id[0m[31m[1m"[0m=>[31m[1m"[0m[31m10222649571[0m[31m[1m"[0m, [31m[1m"[0m[31mlastmodifieddate[0m[31m[1m"[0m=>[31m[1m"[0m[31m2024-04-29T02:33:37.409Z[0m[31m[1m"[0m, [31m[1m"[0m[31mlastname[0m[31m[1m"[0m=>[31m[1m"[0m[31mJohnson (Sample Contact)[0m[31m[1m"[0m},
+  @updated_at[32m=[0m2024-04-29 02:33:37.409 UTC[32m>[0m]
