@@ -20,7 +20,8 @@ class BackupContactsJob < ApplicationJob
       # process the contacts
       process_contacts(contacts)
 
-      # return ""
+      # make a database backup
+      backup_db
     rescue StandardError => e
       puts "Error: #{e.message}"
     end
@@ -51,13 +52,29 @@ class BackupContactsJob < ApplicationJob
     if existing_contact
       # update the existing contact
       existing_contact.update(firstname: firstname, lastname: lastname, email: email, created_at: created, updated_at: updated)
-      # puts "Updated contact with id: #{id}"
-      return "Updated contact with id: #{id}"
+      puts "Updated contact with id: #{id}"
+      # return "Updated contact with id: #{id}"
     else
       # create a new contact
       Contact.create(id: id, firstname: firstname, lastname: lastname, email: email, created_at: created, updated_at: updated)
-      # puts "Created contact with id: #{id}"
-      return "Created contact with id: #{id}"
+      puts "Created contact with id: #{id}"
+      # return "Created contact with id: #{id}"
     end
+  end
+
+  def backup_db
+    # command variables
+    db_password = ENV["DB_PASSWORD"]
+    db_host = ENV["DB_HOST"]
+    db_port = ENV["DB_PORT"]
+    db_username = ENV["DB_USERNAME"]
+    db_filename = "./file/backup.sql"
+    db_name = ENV["DB_NAME"]
+
+    # command to be run
+    command = "PGPASSWORD='#{db_password}' pg_dump -h #{db_host} -p #{db_port} -U #{db_username} -F p -b -v -f #{db_filename} -d #{db_name}"
+
+    # execute the command in the command line
+    system(command)
   end
 end
