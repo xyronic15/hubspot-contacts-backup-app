@@ -50,10 +50,15 @@ class BackupContactsJob < ApplicationJob
     existing_contact = Contact.find_by(id: id)
 
     if existing_contact
-      # update the existing contact
-      existing_contact.update(firstname: firstname, lastname: lastname, email: email, created_at: created, updated_at: updated)
-      puts "Updated contact with id: #{id}"
-      # return "Updated contact with id: #{id}"
+      # don't update if there are no changes to the information
+      if firstname == existing_contact.firstname && lastname == existing_contact.lastname && email == existing_contact.email && created == existing_contact.created_at && updated == existing_contact.updated_at
+        puts "No changes made"
+      else
+        # update the existing contact
+        existing_contact.update(firstname: firstname, lastname: lastname, email: email, created_at: created, updated_at: updated)
+        puts "Updated contact with id: #{id}"
+        # return "Updated contact with id: #{id}"
+      end
     else
       # create a new contact
       Contact.create(id: id, firstname: firstname, lastname: lastname, email: email, created_at: created, updated_at: updated)
