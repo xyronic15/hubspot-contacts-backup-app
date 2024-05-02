@@ -1,3 +1,3 @@
 class Contact < ApplicationRecord
-  validates :id, :email, :created_at, presence: true
+  validates :id, :created_at, :updated_at, presence: true
 end
