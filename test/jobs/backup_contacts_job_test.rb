@@ -3,6 +3,8 @@ require 'hubspot-api-client'
 
 ACCESS_TOKEN = ENV["HUBSPOT_ACCESS_TOKEN"]
 
+
+# need to migrate to minitest
 class BackupContactsJobTest < ActiveJob::TestCase
   # test "the truth" do
   #   assert true
