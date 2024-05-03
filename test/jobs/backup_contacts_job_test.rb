@@ -3,17 +3,17 @@ require 'hubspot-api-client'
 
 ACCESS_TOKEN = ENV["HUBSPOT_ACCESS_TOKEN"]
 
-
-# need to migrate to minitest
 class BackupContactsJobTest < ActiveJob::TestCase
+  def setup
+    client = Hubspot::Client.new(access_token: ACCESS_TOKEN)
+    client.crm.contacts.basic_api.get_all
+  end
+
   # test "the truth" do
   #   assert true
   # end
   
   test "process_contact should create contact record if not existing" do
-    client = Hubspot::Client.new(access_token: ACCESS_TOKEN)
-
-    client.crm.contacts.basic_api.get_all
 
     contact = Hubspot::Crm::Contacts::SimplePublicObjectWithAssociations.new(
       {
@@ -37,9 +37,6 @@ class BackupContactsJobTest < ActiveJob::TestCase
   end
 
   test "process_contact should update contact record if existing changed" do
-    client = Hubspot::Client.new(access_token: ACCESS_TOKEN)
-
-    client.crm.contacts.basic_api.get_all
 
     # create a contact and process it
     contact = Hubspot::Crm::Contacts::SimplePublicObjectWithAssociations.new(
@@ -82,12 +79,8 @@ class BackupContactsJobTest < ActiveJob::TestCase
 
   end
 
-
   test "process_contact should not update contact record if existing not changed" do
-    client = Hubspot::Client.new(access_token: ACCESS_TOKEN)
-
-    client.crm.contacts.basic_api.get_all
-
+    
     # create a contact and process it
     contact = Hubspot::Crm::Contacts::SimplePublicObjectWithAssociations.new(
       {
