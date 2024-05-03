@@ -45,24 +45,30 @@ class BackupContactsJob < ApplicationJob
     email = contact.properties["email"]
     created = contact.created_at
     updated = contact.updated_at
+    archived = contact.archived
 
     # check if the contact exists in the database
     existing_contact = Contact.find_by(id: id)
 
+    puts archived
+    # puts existing_contact.archived
+
     if existing_contact
       # don't update if there are no changes to the information
-      if firstname == existing_contact.firstname && lastname == existing_contact.lastname && email == existing_contact.email && created == existing_contact.created_at && updated == existing_contact.updated_at
+      if firstname == existing_contact.firstname && lastname == existing_contact.lastname && email == existing_contact.email && created == existing_contact.created_at && updated == existing_contact.updated_at && archived == existing_contact.archived
         puts "No changes made"
       else
         # update the existing contact
-        existing_contact.update(firstname: firstname, lastname: lastname, email: email, created_at: created, updated_at: updated)
-        puts "Updated contact with id: #{id}"
+        if existing_contact.update(firstname: firstname, lastname: lastname, email: email, created_at: created, updated_at: updated, archived: archived)
+          puts "Updated contact with id: #{id}"
+        end
         # return "Updated contact with id: #{id}"
       end
     else
       # create a new contact
-      Contact.create(id: id, firstname: firstname, lastname: lastname, email: email, created_at: created, updated_at: updated)
-      puts "Created contact with id: #{id}"
+      if Contact.create(id: id, firstname: firstname, lastname: lastname, email: email, created_at: created, updated_at: updated, archived: archived)
+        puts "Created contact with id: #{id}"
+      end
       # return "Created contact with id: #{id}"
     end
   end
