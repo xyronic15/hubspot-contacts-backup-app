@@ -71,3 +71,5 @@ group :test do
 end
 
 gem "tailwindcss-rails", "~> 2.5"
+
+gem "solid_queue", "~> 0.3.0"
