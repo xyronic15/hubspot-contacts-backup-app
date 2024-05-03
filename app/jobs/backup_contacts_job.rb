@@ -72,7 +72,7 @@ class BackupContactsJob < ApplicationJob
   end
 
   def delete_contacts(ids)
-    if Contact.where.not(id: ids).destroy_all
+    if Contact.where.not(id: ids).destroy_all.length > 0
       return "Deleted contacts"
     else
       return "No contacts deleted"
