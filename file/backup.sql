@@ -5,7 +5,7 @@
 -- Dumped from database version 14.11 (Ubuntu 14.11-0ubuntu0.22.04.1)
 -- Dumped by pg_dump version 14.11 (Ubuntu 14.11-0ubuntu0.22.04.1)
 
--- Started on 2024-05-03 00:17:40 EDT
+-- Started on 2024-05-03 17:07:46 EDT
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -81,7 +81,7 @@ ALTER TABLE ONLY public.contacts ALTER COLUMN id SET DEFAULT nextval('public.con
 COPY public.contacts (id, firstname, lastname, email, created_at, updated_at, archived) FROM stdin;
 10214567667	Brian	Halligan (Sample Contact)	bh@hubspot.com	2024-04-29 02:33:19.568	2024-04-29 15:30:29.311	f
 10222649571	Maria	Johnson (Sample Contact)	emailmaria@hubspot.com	2024-04-29 02:33:19.278	2024-04-29 02:33:37.409	f
-10657857229	John	Doe	john@hubspot.com	2024-05-01 11:54:53.749	2024-05-01 11:55:26.289	f
+10657857229	Joon	Doo	john@hubspot.com	2024-05-01 11:54:53.749	2024-05-03 21:02:44.715	f
 \.
 
 
@@ -103,7 +103,7 @@ ALTER TABLE ONLY public.contacts
     ADD CONSTRAINT contacts_pkey PRIMARY KEY (id);
 
 
--- Completed on 2024-05-03 00:17:40 EDT
+-- Completed on 2024-05-03 17:07:46 EDT
 
 --
 -- PostgreSQL database dump complete

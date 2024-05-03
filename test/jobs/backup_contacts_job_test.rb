@@ -68,6 +68,7 @@ class BackupContactsJobTest < ActiveJob::TestCase
         properties: {
           "createdate"=>"2024-04-29T02:33:19.568Z",
           "lastmodifieddate"=>"2024-04-29T15:30:29.311Z",
+          "email"=>"bh@hubspot.com",
           "firstname"=>"Briannew",
           "lastname"=>"Halligannew (Sample Contact)"
         }
@@ -82,8 +83,7 @@ class BackupContactsJobTest < ActiveJob::TestCase
   end
 
 
-  # TBD test not working properly, function works fine after manual testing
-  test "process_contact should update contact record if existing not changed" do
+  test "process_contact should not update contact record if existing not changed" do
     client = Hubspot::Client.new(access_token: ACCESS_TOKEN)
 
     client.crm.contacts.basic_api.get_all
@@ -100,29 +100,31 @@ class BackupContactsJobTest < ActiveJob::TestCase
           "email"=>"bh@hubspot.com",
           "firstname"=>"Brian",
           "lastname"=>"Halligan (Sample Contact)"
-        }
+        },
+        archived: false
       }
     )
     worker = BackupContactsJob.new
-    puts worker.process_contact(contact)
+    worker.process_contact(contact)
 
     new_contact = Hubspot::Crm::Contacts::SimplePublicObjectWithAssociations.new(
       {
         id:1,
-        created_at:"2024-04-29T02:33:19.568Z",
-        updated_at:"2024-04-29T15:30:29.311Z",
+        created_at:"2024-04-29T02:33:19.568Z".in_time_zone("UTC"),
+        updated_at:"2024-04-29T15:30:29.311Z".in_time_zone("UTC"),
         properties: {
-          "createdate"=>"2024-04-29T02:33:19.568Z",
-          "lastmodifieddate"=>"2024-04-29T15:30:29.311Z",
+          "createdate"=>"2024-04-29T02:33:19.568Z".in_time_zone("UTC"),
+          "lastmodifieddate"=>"2024-04-29T15:30:29.311Z".in_time_zone("UTC"),
           "email"=>"bh@hubspot.com",
           "firstname"=>"Brian",
           "lastname"=>"Halligan (Sample Contact)"
-        }
+        },
+        archived: false
       }
     )
 
     # process the contact again and check that the record didn't change
-    msg = worker.process_contact(contact)
+    msg = worker.process_contact(new_contact)
     
     assert_equal "No changes made", msg
   end
