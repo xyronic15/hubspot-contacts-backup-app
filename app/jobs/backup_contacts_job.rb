@@ -77,7 +77,7 @@ class BackupContactsJob < ApplicationJob
     db_name = ENV["DB_NAME"]
 
     # command to be run
-    command = "PGPASSWORD='#{db_password}' pg_dump -h #{db_host} -p #{db_port} -U #{db_username} -F p -b -v -f #{db_filename} -d #{db_name}"
+    command = "PGPASSWORD='#{db_password}' pg_dump -h #{db_host} -p #{db_port} -U #{db_username} -F p -b -v -f #{db_filename} -d #{db_name} -t contacts"
 
     # execute the command in the command line
     system(command)
