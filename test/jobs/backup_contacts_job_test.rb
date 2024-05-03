@@ -31,10 +31,9 @@ class BackupContactsJobTest < ActiveJob::TestCase
     )
 
     worker = BackupContactsJob.new
+    msg = worker.process_contact(contact)
     
-    assert_output("Created contact with id: 1\n") do
-      worker.process_contact(contact)
-    end
+    assert_equal "Created contact with id: 1", msg
   end
 
   test "process_contact should update contact record if existing changed" do
@@ -76,9 +75,10 @@ class BackupContactsJobTest < ActiveJob::TestCase
     )
 
     # process the new contact and check that the record was updated
-    assert_output("Updated contact with id: 1\n") do
-      worker.process_contact(new_contact)
-    end
+    msg = worker.process_contact(contact)
+    
+    assert_equal "Updated contact with id: 1", msg
+
   end
 
 
@@ -104,7 +104,7 @@ class BackupContactsJobTest < ActiveJob::TestCase
       }
     )
     worker = BackupContactsJob.new
-    worker.process_contact(contact)
+    puts worker.process_contact(contact)
 
     new_contact = Hubspot::Crm::Contacts::SimplePublicObjectWithAssociations.new(
       {
@@ -122,8 +122,8 @@ class BackupContactsJobTest < ActiveJob::TestCase
     )
 
     # process the contact again and check that the record didn't change
-    assert_output("No changes made\n") do
-      worker.process_contact(contact)
-    end
+    msg = worker.process_contact(contact)
+    
+    assert_equal "No changes made", msg
   end
 end

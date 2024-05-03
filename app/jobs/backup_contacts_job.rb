@@ -23,7 +23,7 @@ class BackupContactsJob < ApplicationJob
       # make a database backup
       backup_db
     rescue StandardError => e
-      puts "Error: #{e.message}"
+      return "Error: #{e.message}"
     end
   end
 
@@ -50,24 +50,21 @@ class BackupContactsJob < ApplicationJob
     # check if the contact exists in the database
     existing_contact = Contact.find_by(id: id)
 
-    puts archived
-    # puts existing_contact.archived
-
     if existing_contact
       # don't update if there are no changes to the information
       if firstname == existing_contact.firstname && lastname == existing_contact.lastname && email == existing_contact.email && created == existing_contact.created_at && updated == existing_contact.updated_at && archived == existing_contact.archived
-        puts "No changes made"
+        return "No changes made"
       else
         # update the existing contact
         if existing_contact.update(firstname: firstname, lastname: lastname, email: email, created_at: created, updated_at: updated, archived: archived)
-          puts "Updated contact with id: #{id}"
+          return "Updated contact with id: #{id}"
         end
         # return "Updated contact with id: #{id}"
       end
     else
       # create a new contact
       if Contact.create(id: id, firstname: firstname, lastname: lastname, email: email, created_at: created, updated_at: updated, archived: archived)
-        puts "Created contact with id: #{id}"
+        return "Created contact with id: #{id}"
       end
       # return "Created contact with id: #{id}"
     end
