@@ -17,8 +17,11 @@ class BackupContactsJob < ApplicationJob
       contacts = response.to_a
       # puts contacts
 
-      # process the contacts
-      process_contacts(contacts)
+      # process the contacts and get their ids
+      ids = process_contacts(contacts)
+
+      # delete contacts that are not in the response
+      delete_contacts(ids)
 
       # make a database backup
       backup_db
@@ -29,12 +32,10 @@ class BackupContactsJob < ApplicationJob
 
   # process contacts methods
   def process_contacts(contacts)
-    contacts.each do |contact|
-      # process the contact
-      process_contact(contact)
-    end
-    # puts "Processed contacts"
-    return "Processed contacts"
+    ids = contacts.map do |contact|
+        process_contact(contact)
+        contact.id
+      end
   end
 
   def process_contact(contact)
@@ -67,6 +68,14 @@ class BackupContactsJob < ApplicationJob
         return "Created contact with id: #{id}"
       end
       # return "Created contact with id: #{id}"
+    end
+  end
+
+  def delete_contacts(ids)
+    if Contact.where.not(id: ids).destroy_all
+      return "Deleted contacts"
+    else
+      return "No contacts deleted"
     end
   end
 
